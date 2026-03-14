@@ -1,6 +1,10 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
+import codex from "../../assets/codex_dark.png"
+import codex_light from "../../assets/code_light.png"
+
+
 
 const prefersReduced =
   typeof window !== "undefined" &&
@@ -38,12 +42,12 @@ export default function Navbar() {
         transition: "background-color 300ms ease, backdrop-filter 300ms ease",
         willChange: "transform",
       }}
-      className={`sticky top-0 z-50 border-b-4 border-slate-900 px-6 py-4 ${scrolled ? "" : "bg-background-light"}`}
+      className={`sticky top-0 z-50 border-b-4 border-slate-900 px-6 py-4 ${scrolled ? "" : "bg-white"}`}
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2">
-          <div className="bg-primary p-1">
-            <span className="material-symbols-outlined text-white text-3xl">terminal</span>
+          <div className="p-1">
+            {scrolled ? <img src={codex_light} alt="" className="h-10 w-9" /> : <img src={codex} alt="" className="h-10 w-9" />}
           </div>
           <span className={`text-2xl font-black tracking-tighter transition-colors ${scrolled ? "text-white" : "text-slate-900"}`}>
             CODEX ITER

@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { mockData } from "../data/mockData";
 import { ScrollReveal, StaggerContainer, StaggerItem } from "../components/animations/ScrollReveal";
 import TiltCard from "../components/animations/TiltCard";
+import main_logo from "../assets/main_logo.png"
 
 const prefersReduced =
   typeof window !== "undefined" &&
@@ -162,13 +163,7 @@ export default function Home() {
             <div className="absolute inset-0 bg-white border-4 border-slate-900 brutalist-shadow -rotate-2 flex items-center justify-center overflow-hidden">
               <div className="absolute inset-0 opacity-20 grid-pattern" />
               <div className="relative z-10 text-center">
-                <motion.span
-                  className="material-symbols-outlined text-[160px] text-primary leading-none"
-                  animate={{ scale: [1, 1.04, 1] }}
-                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                >
-                  deployed_code
-                </motion.span>
+                <img src={main_logo} alt="" className="h-60 w-60" />
                 <div className="mt-4 font-mono text-slate-900 font-bold bg-background-light p-2 tracking-widest text-sm">
                   {hero.loadingText}
                 </div>
@@ -176,7 +171,7 @@ export default function Home() {
 
               {/* Floating code fragments */}
               <FloatingCode text={hero.codeFrag1} x="8%" y="10%" duration={7} delay={0} />
-              <FloatingCode text={hero.codeFrag2} x="55%" y="75%" duration={9} delay={1.5} />
+              <FloatingCode text={hero.codeFrag2} x="55%" y="85%" duration={9} delay={1.5} />
               <FloatingCode text="</>" x="70%" y="20%" duration={11} delay={0.8} />
               <FloatingCode text="{}" x="20%" y="65%" duration={8} delay={2} />
               <FloatingCode text="//" x="80%" y="55%" duration={10} delay={0.3} />
