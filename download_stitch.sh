@@ -1,0 +1,21 @@
+#!/bin/bash
+mkdir -p stitch-downloads
+cd stitch-downloads
+
+echo "Downloading Main Landing Page..."
+curl -s -L -o main_landing_page.png "https://lh3.googleusercontent.com/aida/AOfcidUn_51BhrjTvoLK-XcQZLJnAlSd6pCw3Zu6cEnna4uaFUsY0WTCbDx-Wl1Ug3RxKDIIpbkzFCzZnSdCZDtetgqW2C_F9iOFvz-OqIRcCSWf1hT471fqHxDaF729o045Az34Z4qxnqUkU9KxXxpZlyDwEK85JsoY2_mDIinG7Lx4bVOHwwZHKPyKd49BhyuzL5X11kqBXP6gQlBbFb1oWEJX1KgHm0IPFVHvSEwGCxbGCsmf9eKLk9MYzCA"
+curl -s -L -o main_landing_page.html "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sX2I2OTBjZDQ1MDM3MTQxZTY4NjE3YjU4NDg4YTIzNDM5EgsSBxCZwNeSpAgYAZIBIwoKcHJvamVjdF9pZBIVQhM5MzkwMDA2NTMzMzA1NzUzMjM4&filename=&opi=89354086"
+
+echo "Downloading Blogs Page..."
+curl -s -L -o blogs_page.png "https://lh3.googleusercontent.com/aida/AOfcidVe7tt_cCES5kjuuy8rUdtDp67FSsvoerMljD2tqHY3hnRtOJrZr3WynX7lr171tQfj_ToeBtS26sb9NVpbbFFjsfnsR87S68DgL_fPUebMvn2MXvfi9OplyULD3z02dOLB_MNE_hnyzqF8NfmTK6Ay1gF1edmuaKqi9v5v7K4_Nfonx0nMwf9SLQVXW7kZ4C9el6Cjv-OYH9XYlpBJwPjOklPZXyWcndsgkDEHi3bLDpdbQXEg7RxYxR8"
+curl -s -L -o blogs_page.html "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sX2E3M2U1YzMxYzczNzQ5NWE5M2E5MmI4MDVlYTg5YjIwEgsSBxCZwNeSpAgYAZIBIwoKcHJvamVjdF9pZBIVQhM5MzkwMDA2NTMzMzA1NzUzMjM4&filename=&opi=89354086"
+
+echo "Downloading Upcoming Events Page..."
+curl -s -L -o upcoming_events_page.png "https://lh3.googleusercontent.com/aida/AOfcidXAMJGiC01tN4Iua0hmHoQ1s_9FQrlkrxTB-1Wr6dnQ6mxSbaXdnOZV07IQLygAvPBEAXE87UzUaNteGgjnRqe5yYmfnPCy4UlkrQR0kz-JVtmld3Qw9Ccq-D8fRfyMUSX8hiSI6fn33C9nFStxtuPMjbqtC7ZVn0enqZqeM-kSSRzxAH_GmJGARxbYxxab-OtzdQoC_jIFA5zB4QThBfxxf5ccJdCppA6Z_gN39j-Y2Fag3ySZVBgYpQ"
+curl -s -L -o upcoming_events_page.html "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sXzJiZWQ0M2NhYTRlNTQ0ZmJiMzhhYTg1NmZlNzEwODBlEgsSBxCZwNeSpAgYAZIBIwoKcHJvamVjdF9pZBIVQhM5MzkwMDA2NTMzMzA1NzUzMjM4&filename=&opi=89354086"
+
+echo "Downloading Team Page..."
+curl -s -L -o team_page.png "https://lh3.googleusercontent.com/aida/AOfcidVauQr-MsE1ttzR9C8PmF5fiZuo1VSFaRGw16jlLfTDbc3A1p9NB-_G6_YSfMmjzOhSBUZX-89s5_1EBqTs08Xh0P4pYLpaZyJavwphj87ES6HqIM6UXS3yegX34aRdo0LHmL47Y3GPheX8kYz-q-e_UkREwWcEKU_jlUUUoKc2fxqkpSzkNO54CGQbYpv5LqM0d3F0_jFIdF0uCjaH8c9E2I25QEAakl_1VieyPHP2fCwqqHYrXHAVRmw"
+curl -s -L -o team_page.html "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sX2RmNTljZjg4Mzg2ZTQwNzFhODhiZTJmOWRiOTkwOGQ2EgsSBxCZwNeSpAgYAZIBIwoKcHJvamVjdF9pZBIVQhM5MzkwMDA2NTMzMzA1NzUzMjM4&filename=&opi=89354086"
+
+echo "Done."

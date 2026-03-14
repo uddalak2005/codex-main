@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#03045E",
+                        "accent": "#0077B6",
+                        "background-light": "#CAF0F8",
+                        "background-dark": "#023E8A",
+                        "brutal-black": "#03045E",
+                        "brutal-white": "#F0F9FF",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0px",
+                        "lg": "0px",
+                        "xl": "0px",
+                        "full": "9999px"
+                    },
+                    boxShadow: {
+                        'brutal': '4px 4px 0px 0px #03045E',
+                        'brutal-lg': '8px 8px 0px 0px #03045E',
+                        'brutal-hover': '2px 2px 0px 0px #03045E',
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .timeline-line {
+            background: repeating-linear-gradient(
+                to bottom,
+                #03045E,
+                #03045E 10px,
+                transparent 10px,
+                transparent 20px
+            );
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 12px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #CAF0F8;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background-color: #03045E;
+            border: 3px solid #CAF0F8;
+        }
+    </style>
+</head>
+<body class="bg-background-light font-display text-primary selection:bg-accent selection:text-white custom-scrollbar">
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+<header class="sticky top-0 z-50 flex items-center justify-between border-b-4 border-primary bg-background-light px-6 py-4 md:px-20">
+<div class="flex items-center gap-3">
+<div class="bg-primary p-1 text-background-light">
+<span class="material-symbols-outlined text-3xl block">terminal</span>
+</div>
+<h1 class="text-2xl font-black uppercase tracking-tighter italic">Codex Iter</h1>
+</div>
+<nav class="hidden md:flex items-center gap-10">
+<a class="text-sm font-bold uppercase tracking-widest hover:underline decoration-4 underline-offset-4" href="#">Events</a>
+<a class="text-sm font-bold uppercase tracking-widest hover:underline decoration-4 underline-offset-4" href="#">Timeline</a>
+<a class="text-sm font-bold uppercase tracking-widest hover:underline decoration-4 underline-offset-4" href="#">Lab</a>
+<a class="text-sm font-bold uppercase tracking-widest hover:underline decoration-4 underline-offset-4" href="#">Contact</a>
+</nav>
+<button class="bg-primary px-6 py-2 text-sm font-black uppercase tracking-widest text-white shadow-brutal hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all">
+                Join Portal
+            </button>
+</header>
+<main class="flex-1 px-6 py-12 md:px-20">
+<div class="mb-16">
+<div class="inline-block bg-accent px-4 py-1 text-white text-xs font-black uppercase tracking-[0.3em] mb-4">
+                    Technical Series 2024
+                </div>
+<h2 class="text-6xl md:text-8xl font-black uppercase leading-none tracking-tighter mb-6">
+                    Upcoming<br/><span class="text-white bg-primary px-2">Iterations</span>
+</h2>
+<p class="max-w-xl text-lg font-bold leading-tight border-l-4 border-primary pl-4 uppercase">
+                    A sequence of technical events designed to bridge the gap between abstract theory and industrial application.
+                </p>
+</div>
+<div class="flex flex-wrap gap-4 mb-12">
+<button class="bg-primary text-white px-8 py-2 font-black uppercase text-sm border-2 border-primary">All Protocols</button>
+<button class="bg-transparent text-primary px-8 py-2 font-black uppercase text-sm border-2 border-primary hover:bg-primary/10">Workshops</button>
+<button class="bg-transparent text-primary px-8 py-2 font-black uppercase text-sm border-2 border-primary hover:bg-primary/10">Hackathons</button>
+<button class="bg-transparent text-primary px-8 py-2 font-black uppercase text-sm border-2 border-primary hover:bg-primary/10">Seminars</button>
+</div>
+<div class="relative grid grid-cols-1 md:grid-cols-[80px_1fr] gap-8">
+<div class="hidden md:flex flex-col items-center py-4">
+<div class="timeline-line w-1 grow"></div>
+</div>
+<div class="flex flex-col gap-16">
+<div class="group relative grid grid-cols-1 lg:grid-cols-2 gap-0 border-4 border-primary bg-white shadow-brutal-lg transition-all hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[12px_12px_0px_0px_#03045E]">
+<div class="h-64 lg:h-full overflow-hidden border-b-4 lg:border-b-0 lg:border-r-4 border-primary relative">
+<div class="absolute inset-0 bg-primary/20 mix-blend-multiply z-10"></div>
+<img class="w-full h-full object-cover grayscale contrast-125 group-hover:grayscale-0 transition-all duration-500" data-alt="Abstract glowing blue technological background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBbFYLKFlX7ZDThH94rVSw1dAXYDjM1vY-TDZdnvRWYZXCvZr5aPFc7gx9_gDkSDmQzOpQzJt9Pig8898-pmdrrBrtF6bLQ_tWcci23p3rnCjdmlBgqU_xnoplrdldRwR2AAh-kaaATFULRufvDYu8eFczecryooUm4j1DMAliJJicCzX80yUND_NL0CMtKW91MAiVcbq6ULocsx6ifIqzVcUgVfegLW9OU4J7ZZgmXvsWAUvDrnZKCMvHSCxMhTIhqb654QJgi63U"/>
+<div class="absolute top-4 left-4 z-20 bg-primary text-white px-3 py-1 font-bold text-xs">ID: CX-001</div>
+</div>
+<div class="p-8 flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start mb-4">
+<div class="flex flex-col">
+<span class="text-accent font-black text-sm uppercase">October 15, 2024</span>
+<span class="text-primary/60 font-bold text-xs uppercase tracking-widest">10:00 AM - 04:00 PM</span>
+</div>
+<span class="material-symbols-outlined text-accent">memory</span>
+</div>
+<h3 class="text-3xl font-black uppercase tracking-tight mb-4 group-hover:text-accent transition-colors">Algorithm Design 101</h3>
+<p class="text-primary font-medium leading-snug mb-8">
+                                    Master the fundamental structures and logical patterns required to build high-performance systems. Deep dive into big O notation and data structural integrity.
+                                </p>
+</div>
+<div class="flex flex-wrap items-center gap-4">
+<button class="flex-1 bg-primary text-white py-4 px-6 font-black uppercase tracking-widest hover:bg-accent transition-colors">
+                                    Register Now
+                                </button>
+<button class="p-4 border-4 border-primary hover:bg-primary hover:text-white transition-all">
+<span class="material-symbols-outlined block">share</span>
+</button>
+</div>
+</div>
+</div>
+<div class="group relative grid grid-cols-1 lg:grid-cols-2 gap-0 border-4 border-primary bg-white shadow-brutal-lg transition-all hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[12px_12px_0px_0px_#03045E]">
+<div class="h-64 lg:h-full overflow-hidden border-b-4 lg:border-b-0 lg:border-r-4 border-primary relative">
+<div class="absolute inset-0 bg-accent/20 mix-blend-multiply z-10"></div>
+<img class="w-full h-full object-cover grayscale contrast-125 group-hover:grayscale-0 transition-all duration-500" data-alt="Digital block patterns with neon blue lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBtouoB_yvh26LQOci0XLVGKYho04uuBtiFdRngFNaK7BV6H5R6Z1oq5f4y-zw_kPjwhBSN-zIgxMK0Sf9Uf-_epyH5ScS_H7xq-DK5C-aYcw_MYkXvYAp0Gs9uJPL2rj6xEii8r6YcGhLpnB2ME7rpCQhAIrDOVbOwUQZsLHu54Uv6-kp_13m1Rs02_6D9qTs2JJnWPaUw4B7T9mH5UDhIar0C0R8AFDqkCJJAFd4Psa3wifw5W_j50PPwH8tHn_HvxuGhKFp4i4s"/>
+<div class="absolute top-4 left-4 z-20 bg-primary text-white px-3 py-1 font-bold text-xs">ID: CX-002</div>
+</div>
+<div class="p-8 flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start mb-4">
+<div class="flex flex-col">
+<span class="text-accent font-black text-sm uppercase">October 22, 2024</span>
+<span class="text-primary/60 font-bold text-xs uppercase tracking-widest">02:00 PM - 08:00 PM</span>
+</div>
+<span class="material-symbols-outlined text-accent">hub</span>
+</div>
+<h3 class="text-3xl font-black uppercase tracking-tight mb-4 group-hover:text-accent transition-colors">Web3 Architecture Summit</h3>
+<p class="text-primary font-medium leading-snug mb-8">
+                                    Exploring the decentralized frontier. A workshop focused on smart contract security, zero-knowledge proofs, and the future of distributed consensus mechanisms.
+                                </p>
+</div>
+<div class="flex flex-wrap items-center gap-4">
+<button class="flex-1 bg-primary text-white py-4 px-6 font-black uppercase tracking-widest hover:bg-accent transition-colors">
+                                    Register Now
+                                </button>
+<button class="p-4 border-4 border-primary hover:bg-primary hover:text-white transition-all">
+<span class="material-symbols-outlined block">share</span>
+</button>
+</div>
+</div>
+</div>
+<div class="group relative grid grid-cols-1 lg:grid-cols-2 gap-0 border-4 border-primary bg-white shadow-brutal-lg transition-all hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[12px_12px_0px_0px_#03045E]">
+<div class="h-64 lg:h-full overflow-hidden border-b-4 lg:border-b-0 lg:border-r-4 border-primary relative">
+<div class="absolute inset-0 bg-primary/20 mix-blend-multiply z-10"></div>
+<img class="w-full h-full object-cover grayscale contrast-125 group-hover:grayscale-0 transition-all duration-500" data-alt="Abstract quantum particle wave visual" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDg-i7l5xB5eBYhCqLUvjalIwntRACo2-QVpMjILVn_x1aouQSk0FAD8Zj31wesbmIHfCslqqVBhSk5RHrmOl4ixFZmtNVqE-OlvFuBnAXgDC_XE7ZUOa9mZVyBkrUuxBVPJw_2TJR_Tf6Nb0EbcPckdq0aOg96SCZzQaQf1KCdLV8fAPXW1mwju2iQ-aXd-389-anHZMX0mDpjS-WZU11WvX-yCDF7TGYkjiWwfKdlG0Y6zFKEjQmyyXjoBwLZWcU3vleHXo5LFt4"/>
+<div class="absolute top-4 left-4 z-20 bg-primary text-white px-3 py-1 font-bold text-xs">ID: CX-003</div>
+</div>
+<div class="p-8 flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start mb-4">
+<div class="flex flex-col">
+<span class="text-accent font-black text-sm uppercase">November 05, 2024</span>
+<span class="text-primary/60 font-bold text-xs uppercase tracking-widest">09:00 AM - 05:00 PM</span>
+</div>
+<span class="material-symbols-outlined text-accent">blur_on</span>
+</div>
+<h3 class="text-3xl font-black uppercase tracking-tight mb-4 group-hover:text-accent transition-colors">Quantum Computing 1.0</h3>
+<p class="text-primary font-medium leading-snug mb-8">
+                                    An introductory intensive on quantum gates, qubits, and Shor's algorithm. Understand how quantum advantage will redefine cryptography and optimization.
+                                </p>
+</div>
+<div class="flex flex-wrap items-center gap-4">
+<button class="flex-1 bg-primary text-white py-4 px-6 font-black uppercase tracking-widest hover:bg-accent transition-colors">
+                                    Register Now
+                                </button>
+<button class="p-4 border-4 border-primary hover:bg-primary hover:text-white transition-all">
+<span class="material-symbols-outlined block">share</span>
+</button>
+</div>
+</div>
+</div>
+<div class="flex flex-col items-center justify-center border-4 border-dashed border-primary/40 py-12 bg-white/50">
+<span class="material-symbols-outlined text-primary/40 text-4xl mb-2">more_horiz</span>
+<p class="font-black uppercase tracking-[0.2em] text-primary/40">End of Current Iteration Cycle</p>
+</div>
+</div>
+</div>
+</main>
+<footer class="mt-20 border-t-4 border-primary bg-primary text-white p-10 md:px-20">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+<div>
+<h4 class="text-2xl font-black uppercase italic mb-6">Codex Iter</h4>
+<p class="text-white/70 font-bold uppercase text-xs leading-loose">
+                        Accelerating the development cycle of the next generation of engineers through rigorous technical challenges and community collaboration.
+                    </p>
+</div>
+<div>
+<h5 class="font-black uppercase tracking-widest text-accent mb-6">Protocols</h5>
+<ul class="flex flex-col gap-3 font-bold uppercase text-xs">
+<li><a class="hover:text-accent" href="#">Documentation</a></li>
+<li><a class="hover:text-accent" href="#">Community Guidelines</a></li>
+<li><a class="hover:text-accent" href="#">Sponsorship Deck</a></li>
+<li><a class="hover:text-accent" href="#">Brand Assets</a></li>
+</ul>
+</div>
+<div>
+<h5 class="font-black uppercase tracking-widest text-accent mb-6">Subsystem Status</h5>
+<div class="flex items-center gap-2 mb-4">
+<div class="w-2 h-2 bg-green-400"></div>
+<span class="text-xs font-bold uppercase">All Systems Operational</span>
+</div>
+<div class="flex gap-4">
+<a class="w-10 h-10 border-2 border-white flex items-center justify-center hover:bg-white hover:text-primary transition-all" href="#">
+<span class="material-symbols-outlined text-sm">terminal</span>
+</a>
+<a class="w-10 h-10 border-2 border-white flex items-center justify-center hover:bg-white hover:text-primary transition-all" href="#">
+<span class="material-symbols-outlined text-sm">code</span>
+</a>
+<a class="w-10 h-10 border-2 border-white flex items-center justify-center hover:bg-white hover:text-primary transition-all" href="#">
+<span class="material-symbols-outlined text-sm">language</span>
+</a>
+</div>
+</div>
+</div>
+<div class="mt-16 pt-8 border-t border-white/10 text-[10px] font-bold uppercase tracking-[0.4em] text-center text-white/40">
+                © 2024 CODEX ITER OPERATIONAL UNIT. ALL RIGHTS RESERVED.
+            </div>
+</footer>
+</div>
+</body></html>

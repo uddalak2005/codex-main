@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0707f2",
+                        "accent": "#00B4D8",
+                        "background-light": "#CAF0F8",
+                        "background-dark": "#0f0f23",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0px",
+                        "lg": "0px",
+                        "xl": "0px",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .brutal-shadow {
+            box-shadow: 4px 4px 0px 0px #000;
+        }
+        .brutal-card:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 8px 8px 0px 0px #00B4D8;
+        }
+        .brutal-input {
+            border: 2px solid #000;
+        }
+        .brutal-input:focus {
+            box-shadow: 4px 4px 0px 0px #00B4D8;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="relative flex h-auto w-full flex-col overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<!-- Minimal Navigation -->
+<header class="flex items-center justify-between whitespace-nowrap border-b-2 border-black px-6 md:px-20 py-4 bg-white dark:bg-slate-900 sticky top-0 z-50">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-3 text-black dark:text-white">
+<div class="size-8 bg-primary flex items-center justify-center text-white border-2 border-black brutal-shadow">
+<span class="material-symbols-outlined text-lg">terminal</span>
+</div>
+<h2 class="text-xl font-bold uppercase tracking-tighter">CODEX ITER</h2>
+</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-sm font-bold uppercase hover:text-accent transition-colors" href="#">Articles</a>
+<a class="text-sm font-bold uppercase hover:text-accent transition-colors" href="#">Tutorials</a>
+<a class="text-sm font-bold uppercase hover:text-accent transition-colors" href="#">Projects</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden sm:flex items-center brutal-input bg-white dark:bg-slate-800 h-10 px-3">
+<span class="material-symbols-outlined text-slate-500 text-xl">search</span>
+<input class="border-none bg-transparent focus:ring-0 text-sm font-bold placeholder:text-slate-400" placeholder="SEARCH_LOGS..." type="text"/>
+</div>
+<button class="bg-primary text-white border-2 border-black brutal-shadow px-6 py-2 text-sm font-bold uppercase hover:bg-accent transition-all">
+                        Subscribe
+                    </button>
+</div>
+</header>
+<main class="px-6 md:px-20 py-12 max-w-7xl mx-auto w-full">
+<!-- Header Section -->
+<div class="mb-16">
+<div class="inline-block bg-accent border-2 border-black brutal-shadow px-4 py-1 mb-4">
+<span class="text-xs font-black uppercase text-black">v2.0.44_STABLE</span>
+</div>
+<h1 class="text-6xl md:text-8xl font-black uppercase tracking-tighter leading-none mb-6 text-black dark:text-white">
+                        Developer<br/><span class="text-primary italic">Logs.exe</span>
+</h1>
+<p class="text-xl max-w-2xl font-medium border-l-4 border-primary pl-6 py-2">
+                        Low-level insights into high-level engineering. Deep dives into kernel patterns, distributed systems, and modern UI brutalism.
+                    </p>
+</div>
+<!-- Filter Tabs -->
+<div class="flex flex-wrap gap-4 mb-12">
+<button class="px-6 py-2 border-2 border-black bg-black text-white font-bold uppercase text-sm tracking-widest">All_Posts</button>
+<button class="px-6 py-2 border-2 border-black bg-white hover:bg-accent transition-colors font-bold uppercase text-sm tracking-widest text-black">Frontend</button>
+<button class="px-6 py-2 border-2 border-black bg-white hover:bg-accent transition-colors font-bold uppercase text-sm tracking-widest text-black">Backend</button>
+<button class="px-6 py-2 border-2 border-black bg-white hover:bg-accent transition-colors font-bold uppercase text-sm tracking-widest text-black">DevOps</button>
+<button class="px-6 py-2 border-2 border-black bg-white hover:bg-accent transition-colors font-bold uppercase text-sm tracking-widest text-black">Web3</button>
+</div>
+<!-- Blog Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- Blog Card 1 -->
+<article class="brutal-card bg-white dark:bg-slate-900 border-2 border-black flex flex-col transition-all duration-300 overflow-hidden">
+<div class="aspect-video w-full bg-slate-200 border-b-2 border-black overflow-hidden relative">
+<img class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500" data-alt="Abstract cyber security hardware interface" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCbGTecD3Kh1zrt27BzqDbqKielHOhDKRBFr0fNzTTASLc8GCskYqOTIJrzNJnd8uCOIPAOeoXOePdW2BNtAI1cORvxsTqLs54KARuR7COH1Ls_wqcTzGjLhvWmtuyDElBvprRIJ5U0PTN4zM_49lHMKEMeYybTRygULnG1A9ICAp_mwe8xuIDb7yhKAAfibAsqSvCSjs-ZDfLxYJ4IoPdiq5TGub-wsgeyG6d0tYWJkAgzyB_ICVTbKpbZj4m6cxkbhVT_FwVFBPI"/>
+<div class="absolute top-4 left-4 bg-primary text-white text-[10px] font-bold px-2 py-1 uppercase border-2 border-black">Security</div>
+</div>
+<div class="p-6 flex flex-col flex-1">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-accent text-sm">schedule</span>
+<span class="text-[10px] font-bold uppercase text-slate-500">12 MIN READ • OCT 24, 2023</span>
+</div>
+<h3 class="text-2xl font-black uppercase leading-tight mb-4 group-hover:text-primary transition-colors">Hardening Rust Microservices for Production</h3>
+<p class="text-slate-600 dark:text-slate-400 text-sm mb-8 flex-1">Exploring ownership patterns and unsafe blocks in mission-critical backend architecture.</p>
+<div class="flex items-center justify-between border-t-2 border-black pt-4">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full border-2 border-black overflow-hidden bg-accent">
+<img class="w-full h-full object-cover" data-alt="Avatar of developer Alex Rivera" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDLnZnIxgFlNb4ZoZhVtS8IXKh2HqpVQmLqk2Iza_DERcb9eIFdcXDhn8MB_YCQtSi_Pen_Wt_Jlhf3H0jp1US_7PRE8BC9zCpnJAl36vgwlkDkI61kNj_wrp85vASnp-tUGr3JQ_ggw-ApaqGmtpaXifUxl_5b9CvOmmP_Wyn9t0wrsvmTKyA1WN6eG8I8Yls04PxEfcDSivXfRmynCSv6--okO1JJa81KgCbXvpgSYeReTwUjmKmOzzlZb48dT6BhReVxi66lswA"/>
+</div>
+<span class="text-xs font-bold uppercase">Alex Rivera</span>
+</div>
+<span class="material-symbols-outlined text-black dark:text-white">arrow_outward</span>
+</div>
+</div>
+</article>
+<!-- Blog Card 2 -->
+<article class="brutal-card bg-white dark:bg-slate-900 border-2 border-black flex flex-col transition-all duration-300 overflow-hidden">
+<div class="aspect-video w-full bg-slate-200 border-b-2 border-black overflow-hidden relative">
+<img class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500" data-alt="Lines of code on a monitor" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDM4alndOYwlud_nAaF3L4Q_QGMQXsg-1D2CHlNqzm2NgneVnEjP7pylK4RBKO-GxTNfnT-jNcp6atccotqFf5lFMbpM0WMLJKG7dAkL1W_QGU_ztUOx-fJxbFRnesMnpgnuxNwfj_JFEpGfIa6qsrwaxiK7xoDXbn7O6G6ApwQ_QkFXrYGLyFH4iHRwTLlEx9gOlE-eXDPoy2uCKdCrCflesty5p0uq9NpP1tCoXaEiof9LlOVrlAbhgcOiYVuD_mzNzs1-b1tcOI"/>
+<div class="absolute top-4 left-4 bg-accent text-black text-[10px] font-bold px-2 py-1 uppercase border-2 border-black">Frontend</div>
+</div>
+<div class="p-6 flex flex-col flex-1">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-accent text-sm">schedule</span>
+<span class="text-[10px] font-bold uppercase text-slate-500">8 MIN READ • OCT 20, 2023</span>
+</div>
+<h3 class="text-2xl font-black uppercase leading-tight mb-4">The Rise of Neo-Brutalist Design Systems</h3>
+<p class="text-slate-600 dark:text-slate-400 text-sm mb-8 flex-1">Why raw borders and high contrast are reclaiming the web from the 'clean' minimalism of 2010s.</p>
+<div class="flex items-center justify-between border-t-2 border-black pt-4">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full border-2 border-black overflow-hidden bg-primary">
+<img class="w-full h-full object-cover" data-alt="Avatar of designer Sarah Chen" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDP5j5KiT29u2Gw7xlaVPRBDISVx_F2hBhKoGT46h5gg_zhBKC9bmaHYHJl24jFzbF-WtROG5nMP2kH60xv84xLXoKZVDOjJbV2brPRyHxOtl_Dy_7Tz2lzRYveGDBZvIEIvUuBF7Hqo-6kCbTnke64E09CvLH_rhlbn9DzkCwKnEP3R1XyiL9z_9L789vwZMoXwGkoRSzt-B3fQ55JChbrzTQuOE0WDCWCYKG8Gky0cnJwbOShu9F3lqgt9mORYDuV-zuEno9toiw"/>
+</div>
+<span class="text-xs font-bold uppercase">Sarah Chen</span>
+</div>
+<span class="material-symbols-outlined text-black dark:text-white">arrow_outward</span>
+</div>
+</div>
+</article>
+<!-- Blog Card 3 -->
+<article class="brutal-card bg-white dark:bg-slate-900 border-2 border-black flex flex-col transition-all duration-300 overflow-hidden">
+<div class="aspect-video w-full bg-slate-200 border-b-2 border-black overflow-hidden relative">
+<img class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500" data-alt="Abstract server room with blue lights" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCziRr2oWar2UvRtPft0zVg14ym10aNBZratGP5pY1RjfXn3gGhrBbFTK5Gwsr2PsmekOm-bITRys5grXzEJuUZymIc0315CDxLAX0Ca7xL8do0ROvLJrM24NruBL_uwdifCeC9gqX5UFafqOtWiM2WLbqCyJutFdhqAFnLA13yja4NGU0hSCQ1-eWq2JScpuP53p-ybIlFZPpu83Nz5isjfmjpcLwv1zkUGZOt4i0HuoT1EYtjGCQXVB2uuRvRBiVtB5MqtHyg2jI"/>
+<div class="absolute top-4 left-4 bg-black text-white text-[10px] font-bold px-2 py-1 uppercase border-2 border-white">DevOps</div>
+</div>
+<div class="p-6 flex flex-col flex-1">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-accent text-sm">schedule</span>
+<span class="text-[10px] font-bold uppercase text-slate-500">15 MIN READ • OCT 15, 2023</span>
+</div>
+<h3 class="text-2xl font-black uppercase leading-tight mb-4">Zero-Downtime Migration: A Horror Story</h3>
+<p class="text-slate-600 dark:text-slate-400 text-sm mb-8 flex-1">Moving 50TB of legacy data without dropping a single packet. Lessons from the edge.</p>
+<div class="flex items-center justify-between border-t-2 border-black pt-4">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full border-2 border-black overflow-hidden bg-slate-400">
+<img class="w-full h-full object-cover" data-alt="Avatar of SRE engineer Jordan Wu" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCEdgcZIpVTb8fiUUBbVAHs3rfPspXhglf1tXkgBzcU8wxiHKElG3qbtfTcpsoITqiN4rMbeNVSF6kGGKDaig-Z70N7hGUY4Gzzlr4jpAUDSaKGYappJSsrK6nNdtWdiW-ZMTZUZhl-_q2Kt6LV2Y7h7FSbXoAzEPvNzl4bY-IiMLucB9HFiAumFaUVXKwSMlGx1DC18ZzWNXAePp3mZC1KZuWEIio1eZSy0PWLpLuWvUS3ZtSubIu5PpZ_XtJgmvYkMRJPqxn7wFY"/>
+</div>
+<span class="text-xs font-bold uppercase">Jordan Wu</span>
+</div>
+<span class="material-symbols-outlined text-black dark:text-white">arrow_outward</span>
+</div>
+</div>
+</article>
+<!-- Blog Card 4 -->
+<article class="brutal-card bg-white dark:bg-slate-900 border-2 border-black flex flex-col transition-all duration-300 overflow-hidden">
+<div class="aspect-video w-full bg-slate-200 border-b-2 border-black overflow-hidden relative">
+<img class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500" data-alt="Abstract hardware components" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCt7bO77JirOT1bjQzF9ZtzqCid8T1A609a3YJ6YnZwOhAsH9-Ts2ppcgcmcKU1yQAErQ3_c2bptRlZn3yX1n0iuQlsL_cU2xeflKHN998VRdYHW99IBlzpEEjkmq95C9lDlxbqgqUzUP6Li4TqRCrwd8JHlv-ndHtnH0yU7r8Z0RT-UQfg4VFO1vkzv04I2Ol_ad1Vje9HZCM8YqzqUhsoKfL_hcgt2AMAN7WHDsprm-mWtZVPEfHJAR2oJ59yXwJ7ijsB7oWtnYU"/>
+<div class="absolute top-4 left-4 bg-primary text-white text-[10px] font-bold px-2 py-1 uppercase border-2 border-black">Wasm</div>
+</div>
+<div class="p-6 flex flex-col flex-1">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-accent text-sm">schedule</span>
+<span class="text-[10px] font-bold uppercase text-slate-500">6 MIN READ • OCT 12, 2023</span>
+</div>
+<h3 class="text-2xl font-black uppercase leading-tight mb-4">WebAssembly Beyond the Browser</h3>
+<p class="text-slate-600 dark:text-slate-400 text-sm mb-8 flex-1">How Wasm is revolutionizing serverless computing and edge logic isolation.</p>
+<div class="flex items-center justify-between border-t-2 border-black pt-4">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full border-2 border-black overflow-hidden bg-accent">
+<img class="w-full h-full object-cover" data-alt="Avatar of developer Marcus Thorne" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDytllH4TuawjZUB_y-Y59FWlS2uAUDFVG8DevJ179to1nyruwCa5zMNW3HNSewff-qQj7T0O_XKyTkpimoqCIYZeVOUZDMhandgA28TpQ9ypR0RcuY05TfcHcuxbzbGFGgndh1ivWIL9r1yZfTx1JKgGdXmawYeld8Zp9w_mMC_9bDLVGQVBd8sI30HAYyQAY8E3KeymXNVq6J_q2ktQNJJWrA0XMN5jfGDoId72_u37w5dgtJl_pKqE_FGzqX07M14geNOfUe0gE"/>
+</div>
+<span class="text-xs font-bold uppercase">Marcus Thorne</span>
+</div>
+<span class="material-symbols-outlined text-black dark:text-white">arrow_outward</span>
+</div>
+</div>
+</article>
+<!-- Blog Card 5 -->
+<article class="brutal-card bg-white dark:bg-slate-900 border-2 border-black flex flex-col transition-all duration-300 overflow-hidden">
+<div class="aspect-video w-full bg-slate-200 border-b-2 border-black overflow-hidden relative">
+<img class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500" data-alt="React logo abstract visualization" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCkgHCYuEqxjl0ecGoLwSf8KQA_i_0GedkMV2HkvSqd9S8SAEhBtLUngacoWYIuYKPNzlyMKxb-Mh_Od8V7dk6OLn81quq8gmJ6ZuwekrF0upAv305vqz-IKaOZ2hNVB3oCPe5uBSVkUeB1aaoscOSae4WhTTPgKHudojd9MiiBbyYjsHqPdPDH3F-K773tPWoCj4nruS4gaQ0bn4lvrlM5XwXn-lwN8byuXKdxQxpFq45yhn_C33R0q0363TDnrbmC0QP6UDvTphA"/>
+<div class="absolute top-4 left-4 bg-accent text-black text-[10px] font-bold px-2 py-1 uppercase border-2 border-black">React</div>
+</div>
+<div class="p-6 flex flex-col flex-1">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-accent text-sm">schedule</span>
+<span class="text-[10px] font-bold uppercase text-slate-500">10 MIN READ • OCT 08, 2023</span>
+</div>
+<h3 class="text-2xl font-black uppercase leading-tight mb-4">Revisiting Higher Order Components in 2024</h3>
+<p class="text-slate-600 dark:text-slate-400 text-sm mb-8 flex-1">Are HOCs still relevant in the world of hooks and server components? A detailed analysis.</p>
+<div class="flex items-center justify-between border-t-2 border-black pt-4">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full border-2 border-black overflow-hidden bg-primary">
+<img class="w-full h-full object-cover" data-alt="Avatar of developer Elena G." src="https://lh3.googleusercontent.com/aida-public/AB6AXuArp81btOFNDxVDtn61krsojU5iJBINKUL0AvFUz0VXQsyzUzCBtxQNA5tKaZ7QUq0q4Ds_9YwMw5puXKimxRn8bdsvlqR2MD4Ni3ZC5zrEhPvBYtyPuH6ZXJMUaQt5cywl7Sths8qwmN4gM4fTPb_cZKEV-4a1ui8773LsT38JAn3MR04mIsXg9_Fb1na_nKq5ceo0zu_9PxejOG2LnucqvLnrmPcSfHix9_IdY4SpXVIXp-QSMCVbi6U5M1NVAotb7kx09VydYmU"/>
+</div>
+<span class="text-xs font-bold uppercase">Elena G.</span>
+</div>
+<span class="material-symbols-outlined text-black dark:text-white">arrow_outward</span>
+</div>
+</div>
+</article>
+<!-- Blog Card 6 -->
+<article class="brutal-card bg-white dark:bg-slate-900 border-2 border-black flex flex-col transition-all duration-300 overflow-hidden">
+<div class="aspect-video w-full bg-slate-200 border-b-2 border-black overflow-hidden relative">
+<img class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500" data-alt="GitHub logo on digital screen" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCfaTWvoadeEt-K4mi5wB0sup4nFb7HHP7Dy7DVq1kvP2Exiydy4xGfSrQ2cRzNUCfEPpSuVrKg6B9NC-iCVhwq1z3QwwMjgqLz1j1SpCcnP-KtjHFqlH2UHFtkavKj4hY72itPNGPrzJyUzZd7Bi5EG8GIoB8kRObi27WLuoVevLMkcOmMeciY30OR4-RBd0wCSWgLwuk7CJEJHkfTLpI0iYz4m2hawbbBP-JTc9pH9YoyDyD7S1XneO0ppPNuOKbaQ5QTyaYKu6s"/>
+<div class="absolute top-4 left-4 bg-black text-white text-[10px] font-bold px-2 py-1 uppercase border-2 border-white">OS</div>
+</div>
+<div class="p-6 flex flex-col flex-1">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-accent text-sm">schedule</span>
+<span class="text-[10px] font-bold uppercase text-slate-500">5 MIN READ • OCT 05, 2023</span>
+</div>
+<h3 class="text-2xl font-black uppercase leading-tight mb-4">How to Sustain Open Source Projects</h3>
+<p class="text-slate-600 dark:text-slate-400 text-sm mb-8 flex-1">The economics of maintainership and why most projects fail after the first year.</p>
+<div class="flex items-center justify-between border-t-2 border-black pt-4">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full border-2 border-black overflow-hidden bg-slate-400">
+<img class="w-full h-full object-cover" data-alt="Avatar of developer David K." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDC56u8iwx3m4sseA6j3PDdnIXY4DU2qdiXHzW2l7ZvgmxWk7sOo1rjLwofreJ2WsD86x6yIVYnsyeA6x0x3supMC6Qf6wxjMGQcHPdD9IutU314hCq-SSe8kynppJIj3LI-OPXRYo-T_iQk7RB1QCDGCMTp0wVkdGMrBR5mYpLJaVhN0y4PLJ7_ztckZd1ubFh7qRBlyZlFTF-_8C4b70tMCadQTu0omj_J2JUve3cJ8XxRENuhDobR2lMTu_Xex52wklypi8mXeg"/>
+</div>
+<span class="text-xs font-bold uppercase">David K.</span>
+</div>
+<span class="material-symbols-outlined text-black dark:text-white">arrow_outward</span>
+</div>
+</div>
+</article>
+</div>
+<!-- Pagination -->
+<div class="mt-20 flex justify-center items-center gap-4">
+<button class="size-12 border-2 border-black bg-white flex items-center justify-center brutal-shadow hover:bg-accent transition-all">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<div class="flex items-center gap-2">
+<span class="px-4 py-2 border-2 border-black bg-primary text-white font-bold">01</span>
+<span class="px-4 py-2 border-2 border-transparent font-bold">02</span>
+<span class="px-4 py-2 border-2 border-transparent font-bold">03</span>
+<span class="px-4 py-2 border-2 border-transparent font-bold">...</span>
+<span class="px-4 py-2 border-2 border-transparent font-bold">12</span>
+</div>
+<button class="size-12 border-2 border-black bg-white flex items-center justify-center brutal-shadow hover:bg-accent transition-all">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</main>
+<!-- Brutal Footer -->
+<footer class="bg-black text-white py-12 px-6 md:px-20 border-t-4 border-primary">
+<div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start gap-12">
+<div class="max-w-sm">
+<h2 class="text-3xl font-black uppercase tracking-tighter mb-4">CODEX ITER</h2>
+<p class="text-slate-400 font-medium">An exploration into the deep architecture of the web. Built for developers who care about what's under the hood.</p>
+</div>
+<div class="grid grid-cols-2 gap-12">
+<div>
+<h4 class="font-bold uppercase text-primary mb-4 text-xs tracking-widest">Navigation</h4>
+<ul class="space-y-2 text-sm font-medium">
+<li><a class="hover:text-accent" href="#">Articles</a></li>
+<li><a class="hover:text-accent" href="#">Tutorials</a></li>
+<li><a class="hover:text-accent" href="#">Changelog</a></li>
+<li><a class="hover:text-accent" href="#">RSS</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold uppercase text-primary mb-4 text-xs tracking-widest">Connect</h4>
+<ul class="space-y-2 text-sm font-medium">
+<li><a class="hover:text-accent" href="#">GitHub</a></li>
+<li><a class="hover:text-accent" href="#">Twitter</a></li>
+<li><a class="hover:text-accent" href="#">Discord</a></li>
+<li><a class="hover:text-accent" href="#">LinkedIn</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="max-w-7xl mx-auto mt-12 pt-8 border-t border-slate-800 text-[10px] font-bold uppercase tracking-widest text-slate-500 flex justify-between">
+<span>© 2024 CODEX ITER CORE_SYSTEM</span>
+<span>LOAD_TIME: 42MS</span>
+</div>
+</footer>
+</div>
+</div>
+</body></html>
