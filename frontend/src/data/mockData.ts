@@ -1,7 +1,7 @@
 export const mockData = {
   home: {
     hero: {
-      established: "Est. 2014",
+      established: "Est. 2016",
       title: "CODEX ITER:",
       subtitle1: "A DECADE",
       subtitle2: "OF CULTURE.",

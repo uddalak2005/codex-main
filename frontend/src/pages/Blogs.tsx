@@ -7,14 +7,29 @@ import { client } from "../sanity/client";
 import { urlFor } from "../sanity/image";
 
 export default function Blogs() {
-  const { hero, categories, posts } = mockData.blogs;
+  const { hero } = mockData.blogs;
 
-  const [dynamicPosts, setDynamicPosts] = useState<any[]>(posts);
+  const [dynamicPosts, setDynamicPosts] = useState<any[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPosts, setTotalPosts] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const pageSize = 6;
+  const totalPages = Math.ceil(totalPosts / pageSize);
 
   useEffect(() => {
     const fetchPosts = async () => {
+      setIsLoading(true);
       try {
-        const result = await client.fetch(`*[_type == "post"] | order(date desc) {
+        // Fetch total count for pagination
+        const count = await client.fetch(`count(*[_type == "post"])`);
+        setTotalPosts(count);
+
+        // Fetch paginated posts
+        const start = (currentPage - 1) * pageSize;
+        const end = start + pageSize;
+
+        const result = await client.fetch(`*[_type == "post"] | order(date desc) [${start}...${end}] {
           _id,
           title,
           "slug": slug.current,
@@ -29,7 +44,7 @@ export default function Blogs() {
           }
         }`);
 
-        if (result && result.length > 0) {
+        if (result) {
           const formattedPosts = result.map((post: any) => ({
             ...post,
             image: post.image ? urlFor(post.image).url() : "https://via.placeholder.com/400x300?text=No+Image",
@@ -42,11 +57,14 @@ export default function Blogs() {
         }
       } catch (error) {
         console.error("Error fetching blogs:", error);
+      } finally {
+        setIsLoading(false);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     };
 
     fetchPosts();
-  }, []);
+  }, [currentPage]);
 
   return (
     <div className="bg-white min-h-screen">
@@ -81,62 +99,108 @@ export default function Blogs() {
 
         {/* Blog Grid */}
         <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {dynamicPosts.map((post) => (
-            <StaggerItem key={post.id || post._id}>
-              <Link to={`/blogs/${post.slug}`} className="group h-full flex flex-col bg-white border-4 border-slate-900 brutalist-shadow-hover transition-all duration-300">
-                <div className="aspect-video bg-slate-200 overflow-hidden border-b-4 border-slate-900 relative">
-                  <img
-                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105"
-                    src={post.image}
-                    alt={post.title}
-                  />
-                </div>
-                <div className="p-6 flex flex-col flex-1">
-                  <div className="flex items-center gap-2 mb-4">
-                    <span className="material-symbols-outlined text-sm" style={{ color: '#00B4D8' }}>schedule</span>
-                    <span className="text-[10px] font-bold uppercase text-slate-500">{new Date(post.date).toLocaleDateString()}</span>
-                  </div>
-                  <h3 className="text-2xl font-black uppercase leading-tight mb-4 group-hover:text-primary transition-colors font-display line-clamp-3">
-                    {post.title}
-                  </h3>
-                  <p className="text-slate-600 font-medium mb-8 flex-1 line-clamp-3">
-                    {post.desc}
-                  </p>
-                  <div className="flex items-center gap-3 pt-6 border-t-2 border-slate-900/10 mt-auto">
+          {isLoading ? (
+            // Skeleton Loading
+            Array.from({ length: 6 }).map((_, i) => (
+              <div key={i} className="h-[450px] bg-slate-100 border-4 border-slate-900 brutalist-shadow animate-pulse" />
+            ))
+          ) : (
+            dynamicPosts.map((post) => (
+              <StaggerItem key={post.id || post._id}>
+                <Link to={`/blogs/${post.slug}`} className="group h-full flex flex-col bg-white border-4 border-slate-900 brutalist-shadow-hover transition-all duration-300">
+                  <div className="aspect-video bg-slate-200 overflow-hidden border-b-4 border-slate-900 relative">
                     <img
-                      className="w-8 h-8 rounded-full border-2 border-slate-900"
-                      src={post.author?.avatar}
-                      alt={post.author?.name}
+                      className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105"
+                      src={post.image}
+                      alt={post.title}
                     />
-                    <span className="text-sm font-black uppercase">{post.author?.name}</span>
                   </div>
-                </div>
-              </Link>
-            </StaggerItem>
-          ))}
+                  <div className="p-6 flex flex-col flex-1">
+                    <div className="flex items-center gap-2 mb-4">
+                      <span className="material-symbols-outlined text-sm" style={{ color: '#00B4D8' }}>schedule</span>
+                      <span className="text-[10px] font-bold uppercase text-slate-500">{new Date(post.date).toLocaleDateString()}</span>
+                    </div>
+                    <h3 className="text-2xl font-black uppercase leading-tight mb-4 group-hover:text-primary transition-colors font-display line-clamp-3">
+                      {post.title}
+                    </h3>
+                    <p className="text-slate-600 font-medium mb-8 flex-1 line-clamp-3">
+                      {post.desc}
+                    </p>
+                    <div className="flex items-center gap-3 pt-6 border-t-2 border-slate-900/10 mt-auto">
+                      <img
+                        className="w-8 h-8 rounded-full border-2 border-slate-900"
+                        src={post.author?.avatar}
+                        alt={post.author?.name}
+                      />
+                      <span className="text-sm font-black uppercase">{post.author?.name}</span>
+                    </div>
+                  </div>
+                </Link>
+              </StaggerItem>
+            ))
+          )}
         </StaggerContainer>
 
         {/* Pagination */}
-        <ScrollReveal delay={0.2} className="mt-20 flex justify-center items-center gap-4">
-          {['chevron_left', null, 'chevron_right'].map((icon, i) =>
-            icon ? (
-              <motion.button
-                key={i}
-                whileHover={{ scale: 1.08, backgroundColor: "#00B4D8" }}
-                whileTap={{ scale: 0.93 }}
-                className="size-12 border-2 border-slate-900 bg-white flex items-center justify-center text-slate-900 cursor-pointer"
-              >
-                <span className="material-symbols-outlined">{icon}</span>
-              </motion.button>
-            ) : (
-              <div key={i} className="flex items-center gap-2">
-                {["01", "02", "03", "...", "12"].map((p) => (
-                  <span key={p} className={`px-4 py-2 border-2 font-bold cursor-pointer transition-colors ${p === "01" ? 'border-slate-900 bg-primary text-white' : 'border-transparent hover:border-slate-300'}`}>{p}</span>
-                ))}
-              </div>
-            )
-          )}
-        </ScrollReveal>
+        {totalPages > 1 && (
+          <ScrollReveal delay={0.2} className="mt-20 flex justify-center items-center gap-4">
+            <motion.button
+              whileHover={currentPage > 1 ? { scale: 1.08, backgroundColor: "#00B4D8" } : {}}
+              whileTap={currentPage > 1 ? { scale: 0.93 } : {}}
+              disabled={currentPage === 1}
+              onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+              className={`size-12 border-2 border-slate-900 flex items-center justify-center transition-colors ${
+                currentPage === 1 ? 'bg-slate-100 text-slate-400 cursor-not-allowed' : 'bg-white text-slate-900 cursor-pointer'
+              }`}
+            >
+              <span className="material-symbols-outlined">chevron_left</span>
+            </motion.button>
+
+            <div className="flex items-center gap-2">
+              {Array.from({ length: totalPages }).map((_, i) => {
+                const pageNum = i + 1;
+                // Basic logic to show current, first, last, and neighbors
+                const isNearCurrent = Math.abs(pageNum - currentPage) <= 1;
+                const isFirstOrLast = pageNum === 1 || pageNum === totalPages;
+
+                if (!isNearCurrent && !isFirstOrLast) {
+                  if (pageNum === 2 || pageNum === totalPages - 1) {
+                    return <span key={pageNum} className="px-2 font-black">...</span>;
+                  }
+                  return null;
+                }
+
+                return (
+                  <motion.button
+                    key={pageNum}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => setCurrentPage(pageNum)}
+                    className={`px-4 py-2 border-2 font-black transition-all cursor-pointer ${
+                      currentPage === pageNum 
+                        ? 'border-slate-900 bg-primary text-white brutalist-shadow-sm -translate-x-1 -translate-y-1' 
+                        : 'border-transparent hover:border-slate-300 text-slate-900'
+                    }`}
+                  >
+                    {pageNum.toString().padStart(2, '0')}
+                  </motion.button>
+                );
+              })}
+            </div>
+
+            <motion.button
+              whileHover={currentPage < totalPages ? { scale: 1.08, backgroundColor: "#00B4D8" } : {}}
+              whileTap={currentPage < totalPages ? { scale: 0.93 } : {}}
+              disabled={currentPage === totalPages}
+              onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
+              className={`size-12 border-2 border-slate-900 flex items-center justify-center transition-colors ${
+                currentPage === totalPages ? 'bg-slate-100 text-slate-400 cursor-not-allowed' : 'bg-white text-slate-900 cursor-pointer'
+              }`}
+            >
+              <span className="material-symbols-outlined">chevron_right</span>
+            </motion.button>
+          </ScrollReveal>
+        )}
       </main>
     </div>
   );
