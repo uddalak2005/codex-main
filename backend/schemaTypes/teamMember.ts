@@ -14,9 +14,12 @@ export default defineType({
       type: 'string',
       options: {
         list: [
-          { title: 'Engineering', value: 'Engineering' },
-          { title: 'Design', value: 'Design' },
-          { title: 'Operations', value: 'Operations' },
+          { title: 'Coordinator', value: 'Coordinator' },
+          { title: 'Member', value: 'Member' },
+          // { title: 'Associate', value: 'Associate' },
+          { title: 'Team Leader', value: 'Team Leader' },
+          { title: 'Core Member', value: 'Core Member' },
+          { title: 'Alumni', value: 'Alumni' },
         ],
       },
       validation: (Rule) => Rule.required(),

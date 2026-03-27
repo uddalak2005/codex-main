@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import { mockData } from "../data/mockData";
 import { ScrollReveal, StaggerContainer, StaggerItem } from "../components/animations/ScrollReveal";
-import TiltCard from "../components/animations/TiltCard";
 import main_logo from "../assets/main_logo.png"
+import { client } from "../sanity/client";
+import { urlFor } from "../sanity/image";
 
 const prefersReduced =
   typeof window !== "undefined" &&
@@ -96,6 +98,53 @@ export default function Home() {
   const CHAR_COUNT = (hero.title + " " + hero.subtitle1 + " " + hero.subtitle2).length;
   const ctaDelay = 0.3 + CHAR_COUNT * 0.04 + 0.8;
 
+  const [dynamicUpdates, setDynamicUpdates] = useState<any[]>(updates); // Fallback to mock data initially
+
+  useEffect(() => {
+    const fetchUpdates = async () => {
+      try {
+        // Fetch up to 3 latest events
+        const events = await client.fetch(`*[_type == "event"] | order(date desc)[0...3] {
+          _id,
+          "type": "event",
+          title,
+          desc,
+          date,
+          image,
+          "cta": "RSVP NOW"
+        }`);
+        
+        let posts: any[] = [];
+        if (events.length < 3) { // If fewer than 3 events, fill with blogs
+          const remaining = 3 - events.length;
+          posts = await client.fetch(`*[_type == "post"] | order(date desc)[0...${remaining}] {
+            _id,
+            "type": "blog",
+            title,
+            "slug": slug.current,
+            desc,
+            date,
+            image,
+            "cta": "READ MORE"
+          }`);
+        }
+        
+        const combined = [...events, ...posts].map((item: any) => ({
+          ...item,
+          image: item.image ? urlFor(item.image).url() : "https://via.placeholder.com/400x300?text=No+Image"
+        }));
+        
+        if (combined.length > 0) {
+          setDynamicUpdates(combined);
+        }
+      } catch (error) {
+        console.error("Error fetching dynamic updates:", error);
+      }
+    };
+    
+    fetchUpdates();
+  }, []);
+
   return (
     <div>
       {/* ── HERO ────────────────────────────────────────────────── */}
@@ -122,7 +171,7 @@ export default function Home() {
             </h1>
 
             {/* Typing subheading */}
-            <p className="text-xl md:text-2xl font-medium text-slate-800 mb-10 max-w-lg border-l-4 border-primary pl-6 min-h-[4rem]">
+            <p className="text-xl md:text-2xl font-medium text-slate-800 mb-10 max-w-lg border-l-4 border-primary pl-6 min-h-16">
               {displayed}
               {!done && (
                 <motion.span
@@ -264,38 +313,39 @@ export default function Home() {
           </ScrollReveal>
 
           <StaggerContainer className="grid md:grid-cols-3 gap-10">
-            {updates.map((post, i) => (
-              <StaggerItem key={i}>
-                <TiltCard
-                  maxTilt={8}
-                  liftY={8}
-                  className="border-4 border-slate-900 brutalist-shadow flex flex-col cursor-pointer bg-white group h-full"
+            {dynamicUpdates.map((item, i) => (
+              <StaggerItem key={item._id || i}>
+                <Link 
+                  to={item.type === 'blog' ? `/blogs/${item.slug}` : '/events'}
+                  className="group h-full flex flex-col bg-white border-4 border-slate-900 brutalist-shadow-hover transition-all duration-300"
                 >
                   <div className="h-64 bg-slate-200 overflow-hidden relative border-b-4 border-slate-900 shrink-0">
                     <img
-                      alt={post.title}
+                      alt={item.title}
                       className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105"
-                      src={post.image}
+                      src={item.image}
                     />
-                    <div className={`absolute top-4 left-4 text-white px-3 py-1 font-bold text-sm tracking-wider uppercase ${post.type === 'BLOG' ? 'bg-primary' : 'bg-slate-900'}`}>
-                      {post.type}
+                    <div className={`absolute top-4 left-4 text-white px-3 py-1 font-bold text-sm tracking-wider uppercase ${item.type === 'blog' ? 'bg-primary' : 'bg-slate-900'}`}>
+                      {item.type}
                     </div>
                   </div>
                   <div className="p-6 flex flex-col grow">
-                    <div className="text-sm font-bold text-primary mb-2 tracking-wide">{post.date}</div>
+                    <div className="text-sm font-bold text-primary mb-2 tracking-wide">
+                      {item.type === 'event' ? new Date(item.date).toLocaleDateString() : new Date(item.date).toLocaleDateString()}
+                    </div>
                     <h4 className="text-2xl font-black mb-4 leading-tight group-hover:text-primary transition-colors font-display line-clamp-3">
-                      {post.title}
+                      {item.title}
                     </h4>
                     <p className="text-slate-600 mb-6 font-medium text-sm leading-relaxed line-clamp-3">
-                      {post.desc}
+                      {item.desc}
                     </p>
                     <div className="mt-auto">
                       <span className="inline-flex items-center gap-2 font-black uppercase text-sm border-b-2 border-slate-900 pb-1 group-hover:text-primary group-hover:border-primary transition-colors">
-                        {post.cta} <span className="material-symbols-outlined text-base">arrow_forward</span>
+                        {item.cta} <span className="material-symbols-outlined text-base">arrow_forward</span>
                       </span>
                     </div>
                   </div>
-                </TiltCard>
+                </Link>
               </StaggerItem>
             ))}
           </StaggerContainer>

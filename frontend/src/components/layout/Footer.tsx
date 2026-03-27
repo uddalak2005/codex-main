@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import { motion, useInView } from "framer-motion";
 import type { Variants } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
+import { client } from "../../sanity/client";
 
 export default function Footer() {
   const ref = useRef<HTMLElement>(null);
@@ -16,6 +17,12 @@ export default function Footer() {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" as const } },
   };
+
+  const [settings, setSettings] = useState<any>(null);
+
+  useEffect(() => {
+    client.fetch(`*[_type == "settings"][0]`).then(setSettings).catch(console.error);
+  }, []);
 
   return (
     <footer ref={ref} className="bg-background-dark text-white py-20 px-6 border-t-4 border-slate-900">
@@ -69,9 +76,9 @@ export default function Footer() {
           <motion.h5 variants={itemAnim} className="font-black text-xl mb-6 uppercase tracking-widest text-primary">Connect</motion.h5>
           <div className="flex gap-4">
             {[
-              { icon: "share", href: "#" },
-              { icon: "alternate_email", href: "#" },
-              { icon: "code", href: "#" },
+              { icon: "share", href: settings?.linkedin || "#" },
+              { icon: "alternate_email", href: settings?.email ? `mailto:${settings.email}` : "#" },
+              { icon: "camera", href: settings?.instagram || "#" },
             ].map(({ icon, href }) => (
               <motion.a
                 key={icon}

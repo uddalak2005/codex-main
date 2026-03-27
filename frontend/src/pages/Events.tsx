@@ -3,6 +3,9 @@ import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { mockData } from "../data/mockData";
 import { ScrollReveal } from "../components/animations/ScrollReveal";
 import TiltCard from "../components/animations/TiltCard";
+import { useEffect, useState } from "react";
+import { client } from "../sanity/client";
+import { urlFor } from "../sanity/image";
 
 const prefersReduced =
   typeof window !== "undefined" &&
@@ -27,12 +30,145 @@ function PulseNode() {
   );
 }
 
+function EventCard({ item, i }: { item: any, i: number }) {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const inView = useInView(cardRef, { once: true, margin: "0px 0px -10% 0px" });
+  const fromLeft = i % 2 === 0;
+
+  const eventDate = new Date(item.date);
+
+  return (
+    <motion.div
+      ref={cardRef}
+      initial={prefersReduced ? {} : { opacity: 0, x: fromLeft ? -60 : 60 }}
+      animate={inView ? { opacity: 1, x: 0 } : {}}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      className="relative"
+    >
+      <PulseNode />
+      <TiltCard
+        maxTilt={6}
+        liftY={6}
+        className="group relative grid grid-cols-1 lg:grid-cols-2 gap-0 border-4 border-primary bg-white brutalist-shadow hover:shadow-[12px_12px_0px_0px_#03045E] cursor-pointer"
+        onClick={() => item.link && window.open(item.link, '_blank')}
+      >
+        <div className="h-64 lg:h-full overflow-hidden border-b-4 lg:border-b-0 lg:border-r-4 border-primary relative shrink-0">
+          <div className={`absolute inset-0 mix-blend-multiply z-10 ${i % 2 === 0 ? 'bg-primary/20' : 'bg-[#00B4D8]/20'}`} />
+          <img
+            className="w-full h-full object-cover grayscale contrast-125 group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105"
+            src={item.image}
+            alt={item.title}
+          />
+          <div className="absolute top-4 left-4 z-20 bg-primary text-white px-3 py-1 font-bold text-xs uppercase">{item.category}</div>
+        </div>
+        <div className="p-8 flex flex-col justify-between">
+          <div>
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-6 border-b-2 border-slate-100">
+              <div className="flex gap-4">
+                <div className="flex flex-col">
+                  <span className="text-[10px] font-black uppercase text-slate-400 mb-1">When</span>
+                  <div className="flex items-center gap-2 bg-primary/5 px-3 py-2 border-2 border-primary/10 rounded-sm">
+                    <span className="material-symbols-outlined text-lg text-primary">calendar_today</span>
+                    <span className="font-black text-sm uppercase text-slate-900">
+                      {eventDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                    </span>
+                  </div>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-[10px] font-black uppercase text-slate-400 mb-1">Time</span>
+                  <div className="flex items-center gap-2 bg-[#00B4D8]/10 px-3 py-2 border-2 border-[#00B4D8]/20 rounded-sm">
+                    <span className="material-symbols-outlined text-lg text-[#00B4D8]">schedule</span>
+                    <span className="font-black text-sm uppercase text-slate-900">
+                      {eventDate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}
+                    </span>
+                  </div>
+                </div>
+              </div>
+              {item.venue && (
+                <div className="flex flex-col">
+                  <span className="text-[10px] font-black uppercase text-slate-400 mb-1">Where</span>
+                  <div className="flex items-center gap-2 bg-slate-900 text-white px-4 py-2 border-2 border-slate-900 brutalist-shadow-sm">
+                    <span className="material-symbols-outlined text-lg text-[#00B4D8]">location_on</span>
+                    <span className="font-black text-sm uppercase italic tracking-tighter">{item.venue}</span>
+                  </div>
+                </div>
+              )}
+            </div>
+            <h3 className="text-3xl font-black uppercase tracking-tight mb-4 font-display group-hover:text-[#00B4D8] transition-colors">{item.title}</h3>
+            <p className="text-primary font-medium leading-snug mb-8 line-clamp-4">{item.desc}</p>
+          </div>
+          <div className="flex flex-wrap items-center gap-4 mt-auto">
+            <motion.button
+              whileHover={{ scale: 1.02, backgroundColor: "#00B4D8" }}
+              whileTap={{ scale: 0.97 }}
+              className="flex-1 bg-primary text-white py-4 px-6 font-black uppercase tracking-widest transition-colors cursor-pointer"
+            >
+              Register Now
+            </motion.button>
+            <motion.button
+              whileHover={{ backgroundColor: "#03045E", color: "#ffffff" }}
+              whileTap={{ scale: 0.97 }}
+              className="p-4 border-4 border-primary transition-all cursor-pointer flex items-center justify-center"
+              onClick={(e) => {
+                e.stopPropagation();
+                if (navigator.share) {
+                  navigator.share({ title: item.title, url: item.link });
+                }
+              }}
+            >
+              <span className="material-symbols-outlined block">share</span>
+            </motion.button>
+          </div>
+        </div>
+      </TiltCard>
+    </motion.div>
+  );
+}
+
 
 export default function Events() {
-  const { hero, filters, items } = mockData.events;
+  const { hero, items } = mockData.events;
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start center", "end center"] });
   const scaleY = useTransform(scrollYProgress, [0, 1], [0, 1]);
+
+  const [dynamicEvents, setDynamicEvents] = useState<any[]>(items);
+  const [activeFilter, setActiveFilter] = useState('All');
+
+  const filters = ['All', 'Workshops', 'Competetions', 'Seminars'];
+
+  const filteredEvents = activeFilter === 'All'
+    ? dynamicEvents
+    : dynamicEvents.filter(e => e.category === activeFilter);
+
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const result = await client.fetch(`*[_type == "event"] | order(date desc) {
+          _id,
+          title,
+          category,
+          date,
+          desc,
+          image,
+          link,
+          venue
+        }`);
+
+        if (result && result.length > 0) {
+          const formattedEvents = result.map((event: any) => ({
+            ...event,
+            image: event.image ? urlFor(event.image).url() : "https://via.placeholder.com/600x400?text=No+Event+Image"
+          }));
+          setDynamicEvents(formattedEvents);
+        }
+      } catch (error) {
+        console.error("Error fetching events:", error);
+      }
+    };
+
+    fetchEvents();
+  }, []);
 
   return (
     <div className="bg-background-light text-primary min-h-screen">
@@ -53,12 +189,14 @@ export default function Events() {
 
         {/* Filters */}
         <ScrollReveal delay={0.1} className="flex flex-wrap gap-4 mb-12">
-          {filters.map((filter, index) => (
+          {filters.map((filter) => (
             <motion.button
               key={filter}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.97 }}
-              className={`px-8 py-2 font-black uppercase text-sm border-2 border-primary transition-colors duration-200 cursor-pointer ${index === 0 ? 'bg-primary text-white' : 'bg-transparent text-primary hover:bg-primary/10'}`}
+              onClick={() => setActiveFilter(filter)}
+              className={`px-8 py-2 font-black uppercase text-sm border-2 border-primary transition-colors duration-200 cursor-pointer ${activeFilter === filter ? 'bg-primary text-white' : 'bg-transparent text-primary hover:bg-primary/10'
+                }`}
             >
               {filter}
             </motion.button>
@@ -79,68 +217,9 @@ export default function Events() {
           </div>
 
           <div className="flex flex-col gap-16 md:pl-14">
-            {items.map((item, i) => {
-              const cardRef = useRef<HTMLDivElement>(null);
-              const inView = useInView(cardRef, { once: true, margin: "0px 0px -10% 0px" });
-              const fromLeft = i % 2 === 0;
-
-              return (
-                <motion.div
-                  key={item.id}
-                  ref={cardRef}
-                  initial={prefersReduced ? {} : { opacity: 0, x: fromLeft ? -60 : 60 }}
-                  animate={inView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                  className="relative"
-                >
-                  <PulseNode />
-                  <TiltCard
-                    maxTilt={6}
-                    liftY={6}
-                    className="group relative grid grid-cols-1 lg:grid-cols-2 gap-0 border-4 border-primary bg-white brutalist-shadow hover:shadow-[12px_12px_0px_0px_#03045E] cursor-pointer"
-                  >
-                    <div className="h-64 lg:h-full overflow-hidden border-b-4 lg:border-b-0 lg:border-r-4 border-primary relative shrink-0">
-                      <div className={`absolute inset-0 mix-blend-multiply z-10 ${i % 2 === 0 ? 'bg-primary/20' : 'bg-[#00B4D8]/20'}`} />
-                      <img
-                        className="w-full h-full object-cover grayscale contrast-125 group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105"
-                        src={item.image}
-                        alt={item.title}
-                      />
-                      <div className="absolute top-4 left-4 z-20 bg-primary text-white px-3 py-1 font-bold text-xs">ID: {item.id}</div>
-                    </div>
-                    <div className="p-8 flex flex-col justify-between">
-                      <div>
-                        <div className="flex justify-between items-start mb-4">
-                          <div className="flex flex-col">
-                            <span className="font-black text-sm uppercase" style={{ color: '#00B4D8' }}>{item.date}</span>
-                            <span className="text-primary/60 font-bold text-xs uppercase tracking-widest">{item.time}</span>
-                          </div>
-                          <span className="material-symbols-outlined" style={{ color: '#00B4D8' }}>{item.icon}</span>
-                        </div>
-                        <h3 className="text-3xl font-black uppercase tracking-tight mb-4 font-display group-hover:text-[#00B4D8] transition-colors">{item.title}</h3>
-                        <p className="text-primary font-medium leading-snug mb-8">{item.desc}</p>
-                      </div>
-                      <div className="flex flex-wrap items-center gap-4 mt-auto">
-                        <motion.button
-                          whileHover={{ scale: 1.02, backgroundColor: "#00B4D8" }}
-                          whileTap={{ scale: 0.97 }}
-                          className="flex-1 bg-primary text-white py-4 px-6 font-black uppercase tracking-widest transition-colors cursor-pointer"
-                        >
-                          Register Now
-                        </motion.button>
-                        <motion.button
-                          whileHover={{ backgroundColor: "#03045E", color: "#ffffff" }}
-                          whileTap={{ scale: 0.97 }}
-                          className="p-4 border-4 border-primary transition-all cursor-pointer flex items-center justify-center"
-                        >
-                          <span className="material-symbols-outlined block">share</span>
-                        </motion.button>
-                      </div>
-                    </div>
-                  </TiltCard>
-                </motion.div>
-              );
-            })}
+            {filteredEvents.map((item, i) => (
+              <EventCard key={item._id} item={item} i={i} />
+            ))}
 
             <motion.div
               className="flex flex-col items-center justify-center border-4 border-dashed border-primary/40 py-12 bg-white/50"

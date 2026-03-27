@@ -4,6 +4,7 @@ import Home from "./pages/Home"
 import Blogs from "./pages/Blogs"
 import Events from "./pages/Events"
 import Team from "./pages/Team"
+import BlogDetail from "./pages/BlogDetail"
 import Navbar from "./components/layout/Navbar"
 import Footer from "./components/layout/Footer"
 import TransitionOverlay from "./components/animations/TransitionOverlay"
@@ -23,6 +24,7 @@ function AnimatedRoutes() {
           <Route path="/blogs" element={<PageTransition><Blogs /></PageTransition>} />
           <Route path="/events" element={<PageTransition><Events /></PageTransition>} />
           <Route path="/team" element={<PageTransition><Team /></PageTransition>} />
+          <Route path="/blogs/:slug" element={<PageTransition><BlogDetail /></PageTransition>} />
         </Routes>
       </AnimatePresence>
     </>
