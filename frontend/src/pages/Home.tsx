@@ -55,9 +55,10 @@ function useTypingEffect(text: string, startDelay: number, speed: number = 30) {
 
 
 // Sonar pulse ring
-function SonarButton({ children, className }: { children: React.ReactNode; className?: string }) {
+function SonarButton({ children, className, onClick }: { children: React.ReactNode; className?: string; onClick?: () => void }) {
   return (
     <motion.button
+      onClick={onClick}
       className={`relative ${className ?? ""}`}
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.97 }}
@@ -112,14 +113,14 @@ export default function Home() {
           date,
           image
         }`);
-        
+
         const combined = rawData.map((item: any) => ({
           ...item,
           type: item._type === 'post' ? 'blog' : 'event',
           cta: item._type === 'post' ? 'READ MORE' : 'RSVP NOW',
           image: item.image ? urlFor(item.image).url() : "https://via.placeholder.com/600x400?text=No+Image"
         }));
-        
+
         if (combined.length > 0) {
           setDynamicUpdates(combined);
         }
@@ -127,7 +128,7 @@ export default function Home() {
         console.error("Error fetching dynamic updates:", error);
       }
     };
-    
+
     fetchUpdates();
   }, []);
 
@@ -301,7 +302,7 @@ export default function Home() {
           <StaggerContainer className="grid md:grid-cols-3 gap-10">
             {dynamicUpdates.map((item, i) => (
               <StaggerItem key={item._id || i}>
-                <Link 
+                <Link
                   to={item.type === 'blog' ? `/blogs/${item.slug}` : '/events'}
                   className="group h-full flex flex-col bg-white border-4 border-slate-900 brutalist-shadow-hover transition-all duration-300"
                 >
@@ -347,10 +348,14 @@ export default function Home() {
               Join the league of exceptional developers and help us build the next decade of engineering culture.
             </p>
             <div className="flex flex-col md:flex-row items-center justify-center gap-6">
-              <SonarButton className="bg-white text-slate-900 px-12 py-6 text-xl md:text-2xl font-black border-4 border-slate-900 w-full md:w-auto font-display tracking-widest uppercase cursor-pointer">
-                APPLY FOR MEMBERSHIP
+              <SonarButton
+                onClick={() => window.open("https://whatsapp.com/channel/0029Vb7SavAElagvuWq2i10a", "_blank")}
+                className="bg-white text-slate-900 px-12 py-6 text-xl md:text-2xl font-black border-4 border-slate-900 w-full md:w-auto font-display tracking-widest uppercase cursor-pointer"
+              >
+                JOIN OUR CHANNEL
               </SonarButton>
               <motion.button
+                onClick={() => window.open("mailto:codexiter@gmail.com", "_blank")}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.97 }}
                 className="bg-slate-900 text-white px-12 py-6 text-xl md:text-2xl font-black border-4 border-slate-900 w-full md:w-auto font-display tracking-widest uppercase cursor-pointer"
