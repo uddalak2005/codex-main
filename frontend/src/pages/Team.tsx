@@ -111,7 +111,7 @@ function TeamCard({ member }: { member: any }) {
 }
 
 export default function Team() {
-  const { hero, members, cta } = mockData.team;
+  const { hero, members } = mockData.team;
   const [dynamicMembers, setDynamicMembers] = useState<any[]>(members);
   const [activeFilter, setActiveFilter] = useState('All');
 
@@ -196,24 +196,7 @@ export default function Team() {
           ))}
         </StaggerContainer>
 
-        {/* CTA */}
-        <ScrollReveal delay={0.1} className="mt-32">
-          <motion.div
-            className="p-12 bg-primary text-white border-4 border-slate-900 flex flex-col md:flex-row items-center justify-between gap-8 brutalist-shadow"
-          >
-            <div>
-              <h2 className="text-4xl font-black uppercase tracking-tighter mb-2">{cta.title}</h2>
-              <p className="text-lg opacity-80">{cta.desc}</p>
-            </div>
-            <motion.button
-              whileHover={{ scale: 1.02, backgroundColor: "#f1f5f9" }}
-              whileTap={{ scale: 0.97 }}
-              className="bg-white text-primary font-black px-10 py-4 uppercase text-lg border-2 border-slate-900 cursor-pointer"
-            >
-              {cta.btnText}
-            </motion.button>
-          </motion.div>
-        </ScrollReveal>
+
       </main>
     </div>
   );
